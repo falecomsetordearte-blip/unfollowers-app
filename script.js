@@ -1,4 +1,4 @@
-// script.js (versão corrigida e robusta)
+// script.js (versão final corrigida com base nos seus arquivos)
 
 const followersInput = document.getElementById('followers-file');
 const followingInput = document.getElementById('following-file');
@@ -21,20 +21,19 @@ compareBtn.addEventListener('click', async () => {
         const followersText = await followersFile.text();
         const followingText = await followingFile.text();
 
-        // Converte o texto para objetos JSON
-        const parsedFollowers = JSON.parse(followersText);
-        const parsedFollowing = JSON.parse(followingText);
-        
-        // ===== AQUI ESTÁ A CORREÇÃO! =====
-        // Verifica se a chave 'relationships_followers' existe. Se sim, usa ela. Se não, usa o objeto inteiro.
-        // Isso torna o código compatível com as duas versões do arquivo do Instagram.
-        const followersData = parsedFollowers.relationships_followers || parsedFollowers;
-        const followingData = parsedFollowing.relationships_following || parsedFollowing;
-        // ===================================
+        // Converte o texto JSON em objetos/arrays JavaScript
+        const followersData = JSON.parse(followersText); // followers_1.json é um array direto
+        const followingData = JSON.parse(followingText).relationships_following; // following.json é um objeto com a chave
 
-        // Extrai apenas os nomes de usuário de cada lista
+        // ===== AQUI ESTÁ A CORREÇÃO FINAL E PRECISA =====
+        // Extrai os nomes de usuário de cada lista, USANDO A ESTRUTURA CORRETA PARA CADA ARQUIVO.
+
+        // Para a lista de seguidores (followers), o nome está em 'string_list_data[0].value'
         const followersUsernames = followersData.map(user => user.string_list_data[0].value);
-        const followingUsernames = followingData.map(user => user.string_list_data[0].value);
+
+        // Para a lista de quem você segue (following), o nome está em 'title'
+        const followingUsernames = followingData.map(user => user.title);
+        // ===================================================
 
         // Para uma busca mais rápida, criamos um Set com os seguidores
         const followersSet = new Set(followersUsernames);
@@ -46,14 +45,15 @@ compareBtn.addEventListener('click', async () => {
 
     } catch (error) {
         alert('Ocorreu um erro ao processar os arquivos. Verifique se são os arquivos JSON corretos e tente novamente.');
-        console.error("Erro detalhado:", error); // Isso ajuda a ver o erro no console do navegador (F12)
+        console.error("Erro detalhado:", error);
     }
 });
 
 function displayResults(users) {
     resultsSection.classList.remove('hidden');
     resultsTitle.innerText = `Você segue ${users.length} usuário(s) que não te seguem de volta:`;
-    resultsTextarea.value = users.join('\n');
+    // Remove qualquer usuário "undefined" que possa aparecer por erro e junta o resto em uma string
+    resultsTextarea.value = users.filter(user => user).join('\n');
 }
 
 copyBtn.addEventListener('click', () => {
