@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unfollowers Instagram</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Quem não me segue de volta?</h1>
+            <p>Para o perfil: <strong>@vgdior</strong></p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <p>1. Faça o upload dos arquivos <strong>followers_1.json</strong> e <strong>following.json</strong> que você baixou do Instagram.</p>
+                
+                <div class="file-inputs">
+                    <div class="input-group">
+                        <label for="followers-file">Arquivo de Seguidores (followers_1.json)</label>
+                        <input type="file" id="followers-file" accept=".json">
+                    </div>
+                    <div class="input-group">
+                        <label for="following-file">Arquivo de Quem você segue (following.json)</label>
+                        <input type="file" id="following-file" accept=".json">
+                    </div>
+                </div>
+
+                <button id="compare-btn">Comparar Agora</button>
+            </div>
+
+            <div id="results-section" class="hidden">
+                <h2 id="results-title">Usuários que não te seguem de volta:</h2>
+                <textarea id="results-textarea" readonly rows="15"></textarea>
+                <button id="copy-btn">Copiar Lista</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
