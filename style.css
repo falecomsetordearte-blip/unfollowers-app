@@ -67,7 +67,7 @@ input[type="file"] {
 }
 
 button {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: #ffffff
     color: white;
     border: none;
     padding: 12px 20px;
@@ -133,7 +133,7 @@ button:hover {
 }
 
 .copy-icon-btn:hover {
-    background-color: #f0f0f0;
+    background-color: #c5c5c5;
 }
 
 .copy-icon-btn svg {
