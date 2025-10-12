@@ -1,3 +1,5 @@
+// script.js (versão corrigida)
+
 // Seleciona os elementos do HTML que vamos usar
 const followersInput = document.getElementById('followers-file');
 const followingInput = document.getElementById('following-file');
@@ -24,7 +26,8 @@ compareBtn.addEventListener('click', async () => {
         const followingText = await followingFile.text();
 
         // Converte o texto JSON em objetos JavaScript
-        const followersData = JSON.parse(followersText);
+        // ===== ESTA É A LINHA QUE MUDOU! =====
+        const followersData = JSON.parse(followersText).relationships_followers; 
         const followingData = JSON.parse(followingText).relationships_following;
         
         // Extrai apenas os nomes de usuário de cada lista
@@ -42,7 +45,7 @@ compareBtn.addEventListener('click', async () => {
         displayResults(notFollowingBack);
 
     } catch (error) {
-        alert('Ocorreu um erro ao ler ou processar os arquivos. Verifique se são os arquivos JSON corretos do Instagram.');
+        alert('Ocorreu um erro ao ler ou processar os arquivos. Verifique se são os arquivos JSON corretos e tente novamente.');
         console.error(error);
     }
 });
