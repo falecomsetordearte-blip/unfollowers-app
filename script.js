@@ -20,21 +20,16 @@ compareBtn.addEventListener('click', async () => {
         const followersText = await followersFile.text();
         const followingText = await followingFile.text();
 
-        // Converte o texto para objetos JSON, usando a estrutura correta para cada arquivo
         const followersData = JSON.parse(followersText);
         const followingData = JSON.parse(followingText).relationships_following;
 
-        // Extrai os nomes de usuário de cada lista, usando a chave correta para cada arquivo
         const followersUsernames = followersData.map(user => user.string_list_data[0].value);
         const followingUsernames = followingData.map(user => user.title);
 
-        // Cria um Set para uma busca otimizada
         const followersSet = new Set(followersUsernames);
 
-        // Filtra a lista de quem você segue para encontrar quem não está na sua lista de seguidores
         const notFollowingBack = followingUsernames.filter(username => !followersSet.has(username));
         
-        // Chama a função para exibir os resultados na nova lista interativa
         displayResults(notFollowingBack);
 
     } catch (error) {
@@ -44,13 +39,11 @@ compareBtn.addEventListener('click', async () => {
 });
 
 function displayResults(users) {
-    // Limpa a lista de resultados anteriores antes de adicionar novos
     resultsList.innerHTML = ''; 
     
     resultsSection.classList.remove('hidden');
     resultsTitle.innerText = `Você segue ${users.length} usuário(s) que não te seguem de volta:`;
 
-    // Ícones SVG como strings para fácil manipulação
     const copyIconSVG = `
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -62,28 +55,32 @@ function displayResults(users) {
             <polyline points="20 6 9 17 4 12"></polyline>
         </svg>`;
 
-    // Itera sobre a lista de usuários que não te seguem
     users.forEach(username => {
-        if (!username) return; // Garante que não criamos itens para usuários inválidos
+        if (!username) return;
 
-        // Cria os elementos HTML para cada item da lista
+        // <<< MUDANÇA PRINCIPAL AQUI >>>
+        // Processa o nome de usuário: pega a string e a divide no primeiro "."
+        // O [0] pega a primeira parte antes do ponto.
+        // Se não houver ponto, o array terá apenas um item, que é o próprio username.
+        const processedUsername = username.split('.')[0];
+        // <<< FIM DA MUDANÇA >>>
+
         const item = document.createElement('div');
         item.className = 'user-item';
 
         const nameSpan = document.createElement('span');
-        nameSpan.textContent = username;
+        // Usamos o nome processado para EXIBIR na tela
+        nameSpan.textContent = processedUsername;
 
         const copyButton = document.createElement('button');
         copyButton.className = 'copy-icon-btn';
         copyButton.innerHTML = copyIconSVG;
         
-        // Adiciona o evento de clique para copiar o nome de usuário
         copyButton.addEventListener('click', () => {
-            navigator.clipboard.writeText(username).then(() => {
-                // Feedback visual: troca o ícone para "copiado"
+            // E usamos o nome processado também para COPIAR
+            navigator.clipboard.writeText(processedUsername).then(() => {
                 copyButton.innerHTML = checkIconSVG;
                 
-                // Volta ao ícone original após 1.5 segundos
                 setTimeout(() => {
                     copyButton.innerHTML = copyIconSVG;
                 }, 1500);
@@ -93,7 +90,6 @@ function displayResults(users) {
             });
         });
 
-        // Adiciona o nome e o botão ao item, e o item à lista principal
         item.appendChild(nameSpan);
         item.appendChild(copyButton);
         resultsList.appendChild(item);
