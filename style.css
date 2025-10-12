@@ -87,22 +87,62 @@ button:hover {
     margin-top: 30px;
 }
 
-#results-textarea {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    border: 1px solid #dbdbdb;
-    border-radius: 4px;
-    resize: vertical;
-    font-size: 14px;
-    background-color: #f9f9f9;
-}
-
-#copy-btn {
-    margin-top: 10px;
-    background: #0095f6;
-}
-
 .hidden {
     display: none;
+}
+
+/* --- Estilos para a nova lista de resultados --- */
+
+#results-list {
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.user-item:last-child {
+    border-bottom: none;
+}
+
+.user-item span {
+    font-weight: 500;
+    color: #262626;
+}
+
+.copy-icon-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.copy-icon-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.copy-icon-btn svg {
+    width: 18px;
+    height: 18px;
+    color: #8e8e8e;
+    transition: color 0.2s ease;
+}
+
+.copy-icon-btn:hover svg {
+    color: #262626;
 }
