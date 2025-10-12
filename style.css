@@ -146,3 +146,69 @@ button:hover {
 .copy-icon-btn:hover svg {
     color: #262626;
 }
+/* --- Estilos para a lista de Close Friends --- */
+.cf-user-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.cf-user-item:last-child {
+    border-bottom: none;
+}
+
+.cf-user-item .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+
+.cf-user-item .avatar svg {
+    width: 20px;
+    height: 20px;
+    color: #c7c7c7;
+}
+
+.cf-user-item .user-info {
+    flex-grow: 1; /* Faz o nome ocupar o espaço restante */
+    font-weight: 500;
+}
+
+.cf-user-item .profile-link {
+    background-color: #0095f6;
+    color: white;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.cf-user-item .profile-link:hover {
+    background-color: #0077c3;
+}
+
+/* --- Navegação entre páginas --- */
+.navigation {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #dbdbdb;
+}
+
+.navigation a {
+    color: #0095f6;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.navigation a:hover {
+    text-decoration: underline;
+}

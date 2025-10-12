@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Amigos Próximos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Quem não está nos Amigos Próximos?</h1>
+            <p>Compare quem você segue com sua lista de Amigos Próximos.</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <p>1. Faça o upload dos arquivos <strong>following.json</strong> e <strong>close_friends.json</strong> que você baixou do Instagram.</p>
+                
+                <div class="file-inputs">
+                    <div class="input-group">
+                        <label for="following-file">Arquivo de Quem você segue (following.json)</label>
+                        <input type="file" id="following-file" accept=".json">
+                    </div>
+                    <div class="input-group">
+                        <label for="close-friends-file">Arquivo de Amigos Próximos (close_friends.json)</label>
+                        <input type="file" id="close-friends-file" accept=".json">
+                    </div>
+                </div>
+
+                <button id="compare-btn">Verificar Agora</button>
+            </div>
+
+            <div id="results-section" class="hidden">
+                <h2 id="results-title">Usuários que não estão nos Amigos Próximos:</h2>
+                <!-- A lista de usuários será inserida aqui pelo JavaScript -->
+                <div id="results-list"></div>
+            </div>
+        </main>
+        
+        <nav class="navigation">
+            <a href="index.html">Verificador de Unfollowers</a>
+        </nav>
+    </div>
+
+    <script src="close-friends.js"></script>
+</body>
+</html>
