@@ -1,6 +1,5 @@
-// script.js (versão corrigida)
+// script.js (versão corrigida e robusta)
 
-// Seleciona os elementos do HTML que vamos usar
 const followersInput = document.getElementById('followers-file');
 const followingInput = document.getElementById('following-file');
 const compareBtn = document.getElementById('compare-btn');
@@ -9,29 +8,31 @@ const resultsTitle = document.getElementById('results-title');
 const resultsTextarea = document.getElementById('results-textarea');
 const copyBtn = document.getElementById('copy-btn');
 
-// Adiciona um "ouvinte" para o clique no botão de comparar
 compareBtn.addEventListener('click', async () => {
     const followersFile = followersInput.files[0];
     const followingFile = followingInput.files[0];
 
-    // Verifica se os dois arquivos foram selecionados
     if (!followersFile || !followingFile) {
         alert('Por favor, selecione os dois arquivos JSON.');
         return;
     }
 
     try {
-        // Lê o conteúdo dos arquivos como texto
         const followersText = await followersFile.text();
         const followingText = await followingFile.text();
 
-        // Converte o texto JSON em objetos JavaScript
-        // ===== ESTA É A LINHA QUE MUDOU! =====
-        const followersData = JSON.parse(followersText).relationships_followers; 
-        const followingData = JSON.parse(followingText).relationships_following;
+        // Converte o texto para objetos JSON
+        const parsedFollowers = JSON.parse(followersText);
+        const parsedFollowing = JSON.parse(followingText);
         
+        // ===== AQUI ESTÁ A CORREÇÃO! =====
+        // Verifica se a chave 'relationships_followers' existe. Se sim, usa ela. Se não, usa o objeto inteiro.
+        // Isso torna o código compatível com as duas versões do arquivo do Instagram.
+        const followersData = parsedFollowers.relationships_followers || parsedFollowers;
+        const followingData = parsedFollowing.relationships_following || parsedFollowing;
+        // ===================================
+
         // Extrai apenas os nomes de usuário de cada lista
-        // Usamos .map() para transformar cada item do array em apenas o nome de usuário
         const followersUsernames = followersData.map(user => user.string_list_data[0].value);
         const followingUsernames = followingData.map(user => user.string_list_data[0].value);
 
@@ -41,25 +42,20 @@ compareBtn.addEventListener('click', async () => {
         // Filtramos a lista de "seguindo" para encontrar quem não está na lista de "seguidores"
         const notFollowingBack = followingUsernames.filter(username => !followersSet.has(username));
         
-        // Mostra os resultados na tela
         displayResults(notFollowingBack);
 
     } catch (error) {
-        alert('Ocorreu um erro ao ler ou processar os arquivos. Verifique se são os arquivos JSON corretos e tente novamente.');
-        console.error(error);
+        alert('Ocorreu um erro ao processar os arquivos. Verifique se são os arquivos JSON corretos e tente novamente.');
+        console.error("Erro detalhado:", error); // Isso ajuda a ver o erro no console do navegador (F12)
     }
 });
 
-// Função para mostrar os resultados
 function displayResults(users) {
-    resultsSection.classList.remove('hidden'); // Mostra a seção de resultados
+    resultsSection.classList.remove('hidden');
     resultsTitle.innerText = `Você segue ${users.length} usuário(s) que não te seguem de volta:`;
-    
-    // Junta todos os nomes de usuário em uma única string, um por linha
     resultsTextarea.value = users.join('\n');
 }
 
-// Adiciona a funcionalidade de copiar ao botão
 copyBtn.addEventListener('click', () => {
     resultsTextarea.select();
     document.execCommand('copy');
