@@ -17,18 +17,24 @@ compareBtn.addEventListener('click', async () => {
     }
 
     try {
+        console.log(`[APP] Lendo arquivo followers: ${followersFile.name}`);
         const followersText = await followersFile.text();
+        console.log(`[APP] Lendo arquivo following: ${followingFile.name}`);
         const followingText = await followingFile.text();
 
+        console.log("[APP] Fazendo parse dos JSONs...");
         const followersData = JSON.parse(followersText);
         const followingData = JSON.parse(followingText).relationships_following;
+        console.log(`[APP] Parse concluído. Seguidores: ${followersData.length}, Seguindo: ${followingData.length}`);
 
         const followersUsernames = followersData.map(user => user.string_list_data[0].value);
         const followingUsernames = followingData.map(user => user.title);
 
         const followersSet = new Set(followersUsernames);
 
+        console.log("[APP] Comparando listas...");
         const notFollowingBack = followingUsernames.filter(username => !followersSet.has(username));
+        console.log(`[APP] Comparação concluída. ${notFollowingBack.length} usuários não te seguem de volta.`);
         
         displayResults(notFollowingBack);
 

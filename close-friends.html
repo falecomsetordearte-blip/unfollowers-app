@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificador de Amigos Próximos</title>
+    <meta name="description" content="Descubra quem você segue no Instagram mas não está na sua lista de Amigos Próximos.">
+    <meta name="keywords" content="amigos próximos, close friends instagram, verificar amigos próximos">
+    <title>Verificador de Amigos Próximos do Instagram</title>
     <link rel="stylesheet" href="style.css">
+    <script src="ads.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -18,6 +21,11 @@
         </header>
 
         <main>
+            <!-- Espaço para Anúncio AdSense Topo -->
+            <div class="ad-container ad-top">
+                <p class="ad-placeholder-text">Anúncio</p>
+            </div>
+
             <div class="upload-section">
                 <p>1. Faça o upload dos arquivos <strong>following.json</strong> e <strong>close_friends.json</strong> que você baixou do Instagram.</p>
                 
@@ -40,11 +48,30 @@
                 <!-- A lista de usuários será inserida aqui pelo JavaScript -->
                 <div id="results-list"></div>
             </div>
+
+            <!-- Espaço para Anúncio AdSense Fim da Lista -->
+            <div class="ad-container ad-bottom">
+                <p class="ad-placeholder-text">Anúncio</p>
+            </div>
         </main>
         
+        <article class="seo-content">
+            <h2>Gerencie seus Amigos Próximos</h2>
+            <p>Descubra facilmente quem você segue que não está na sua lista de Amigos Próximos do Instagram. Seus arquivos JSON são processados de forma 100% segura e local no seu próprio dispositivo.</p>
+        </article>
+
         <nav class="navigation">
             <a href="index.html">Verificador de Unfollowers</a>
         </nav>
+
+        <footer class="site-footer">
+            <nav>
+                <a href="privacy.html">Privacidade</a>
+                <a href="terms.html">Termos de Uso</a>
+                <a href="contact.html">Contato</a>
+            </nav>
+            <p>&copy; 2026 Unfollowers App. Todos os direitos reservados.</p>
+        </footer>
     </div>
 
     <script src="close-friends.js"></script>

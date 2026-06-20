@@ -17,12 +17,16 @@ compareBtn.addEventListener('click', async () => {
     }
 
     try {
+        console.log(`[CF_APP] Lendo arquivo following: ${followingFile.name}`);
         const followingText = await followingFile.text();
+        console.log(`[CF_APP] Lendo arquivo close_friends: ${closeFriendsFile.name}`);
         const closeFriendsText = await closeFriendsFile.text();
 
+        console.log("[CF_APP] Fazendo parse dos JSONs...");
         // Extrai os dados de cada arquivo com base na sua estrutura específica
         const followingData = JSON.parse(followingText).relationships_following;
         const closeFriendsData = JSON.parse(closeFriendsText).relationships_close_friends;
+        console.log(`[CF_APP] Parse concluído. Seguindo: ${followingData.length}, Amigos Próximos: ${closeFriendsData.length}`);
 
         // Extrai os nomes de usuário de cada lista
         const followingUsernames = followingData.map(user => user.title);
@@ -31,8 +35,10 @@ compareBtn.addEventListener('click', async () => {
         // Cria um Set com os Amigos Próximos para uma verificação rápida
         const closeFriendsSet = new Set(closeFriendsUsernames);
 
+        console.log("[CF_APP] Verificando quem não está nos Amigos Próximos...");
         // Filtra a lista de quem você segue para encontrar quem NÃO está no Set de Amigos Próximos
         const notInCloseFriends = followingUsernames.filter(username => !closeFriendsSet.has(username));
+        console.log(`[CF_APP] Verificação concluída. ${notInCloseFriends.length} usuários encontrados.`);
         
         displayResults(notInCloseFriends);
 
