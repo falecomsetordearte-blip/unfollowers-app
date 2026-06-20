@@ -2,6 +2,8 @@
 const followersInput = document.getElementById('followers-file');
 const followingInput = document.getElementById('following-file');
 const compareBtn = document.getElementById('compare-btn');
+const tutorialBtn = document.getElementById('tutorial-btn');
+const tutorialVideoContainer = document.getElementById('tutorial-video-container');
 const resultsSection = document.getElementById('results-section');
 const resultsTitle = document.getElementById('results-title');
 const resultsList = document.getElementById('results-list');
@@ -99,5 +101,21 @@ function displayResults(users) {
         item.appendChild(nameSpan);
         item.appendChild(copyButton);
         resultsList.appendChild(item);
+    });
+}
+
+// Adiciona o evento de clique ao botão de tutorial
+if (tutorialBtn) {
+    tutorialBtn.addEventListener('click', () => {
+        console.log("[APP] Botão de tutorial clicado.");
+        tutorialVideoContainer.classList.toggle('hidden');
+        
+        if (tutorialVideoContainer.classList.contains('hidden')) {
+            console.log("[APP] Tutorial fechado.");
+            tutorialBtn.innerText = "Ver Tutorial";
+        } else {
+            console.log("[APP] Tutorial aberto.");
+            tutorialBtn.innerText = "Ocultar Tutorial";
+        }
     });
 }

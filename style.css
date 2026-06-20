@@ -280,3 +280,25 @@ button:hover {
     color: #c7c7c7;
     margin: 0;
 }
+
+/* --- Botões de Ação e Tutorial --- */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.action-buttons button {
+    flex: 1; /* Faz os botões dividirem o espaço igualmente */
+}
+
+.secondary-btn {
+    background-color: #f0f0f0;
+    color: #262626;
+    border: 1px solid #dbdbdb;
+}
+
+.secondary-btn:hover {
+    background-color: #e0e0e0;
+    opacity: 1;
+}
